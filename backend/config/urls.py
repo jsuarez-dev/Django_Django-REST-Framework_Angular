@@ -23,8 +23,6 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     # django admin
     path('admin/', admin.site.urls),
-    # app url
-    path('', TemplateView.as_view(template_name='app.html'), name="home"),
     # API urls
     path('', include(('documents.urls', 'documents'), namespace='documents'))
 

@@ -11,7 +11,6 @@ export function toFormData<T>( formValue: T ) {
   for ( const key of Object.keys(formValue) ) {
     const value = formValue[key];
     formData.append(key, value);
-    console.log(key)
   }
   return formData;
 }

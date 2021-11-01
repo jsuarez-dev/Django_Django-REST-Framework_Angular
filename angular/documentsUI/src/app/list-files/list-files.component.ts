@@ -6,7 +6,10 @@ interface fileData {
   id: number;
   name :string; 
   upload: string;
+  ext: string;
 }
+
+
 
 @Component({
   selector: 'app-list-files',
@@ -17,7 +20,6 @@ export class ListFilesComponent implements OnInit {
   @Input() fileUploaded
   
   data : fileData[];
-  listOfFiles : string[];
   private API_URL = environment.apiUrl
   
 
@@ -33,11 +35,25 @@ export class ListFilesComponent implements OnInit {
     this.fetchData()
   }
 
+  isPdf(fileName) {
+    const extension = fileName.split('.')[1].toLowerCase();    
+    if (extension.toLowerCase() === 'pdf' ) {
+      return true;
+    } else {
+      return false
+    }
+  }
+
+
   fetchData() {
     this.http.get(this.API_URL).subscribe(
       (res : fileData[]) => {
-        this.data = res
-        this.listOfFiles = res.map( obj => obj.name)
+        //this.data = res
+        this.data = res.map( obj => {
+          return {...obj, 
+          ext: obj.name.split('.')[1].toLowerCase()
+          }
+        })
       }
     )
   }

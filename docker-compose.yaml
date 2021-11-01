@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  dj:
+    container_name: dj
+    build:
+      context: ./backend
+      dockerfile: ./compose/Dockerfile
+    command: /start
+    volumes:
+      - ./backend:/code
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS=dev
+  ng:
+    container_name: ng
+    build: angular
+    ports:
+      - '80:80'

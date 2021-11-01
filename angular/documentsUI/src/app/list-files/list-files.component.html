@@ -13,7 +13,7 @@
       </p>
     </ion-col>
       
-    <ion-col class="icon-doc" size=1>
+    <ion-col class="icon-doc" size=1 *ngIf="row.ext === 'pdf' ">
       <a href="{{ row.upload }}">
         <img class="icon-doc" src="assets/images/picture_as_pdf_black_24dp.svg" alt="">
       </a>
