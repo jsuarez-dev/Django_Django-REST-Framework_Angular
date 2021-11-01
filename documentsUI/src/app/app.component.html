@@ -1,0 +1,19 @@
+
+
+<ion-app>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title class="ion-text-center"> APP to save Files</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content >
+
+    <app-form-files (fileHasBeenUploadedEvent)="fileHasBeenUploaded()" [fileUploaded]="fileUploaded"></app-form-files>
+    
+    <app-list-files [fileUploaded]="fileUploaded"></app-list-files>
+
+  </ion-content>
+
+</ion-app>
+
+<router-outlet></router-outlet>

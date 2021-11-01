@@ -1,0 +1,31 @@
+<ion-grid>
+  <ion-row>
+    <ion-title class="ion-text-center"> Upload your file</ion-title>
+  </ion-row>
+  <ion-grid>
+    <form (ngSubmit)="submit()" [formGroup]="uploadFile">
+      <ion-row class="ion-justify-content-center">
+        <app-file-field formControlName="upload" (change)="onChange()" [statusColor]="statusColor"></app-file-field>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center ion-margin-top" *ngIf="progress > 0">
+        <ion-progress-bar color="primary" value="{{progress}}"></ion-progress-bar>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center ion-margin-top">
+          <ion-label color="danger" *ngIf="hasError('upload', 'required')">This field is required</ion-label>
+          <ion-label color="danger" *ngIf="hasError('upload', 'requiredFileType')">Only {{ fileTypesAccepted }}</ion-label>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-strat ion-margin-top">
+        <ion-button class="ion-padding-start" type="submit" color="primary">Submit</ion-button>
+      </ion-row>
+    </form>
+  </ion-grid>
+  
+  
+
+</ion-grid>
+
+
+ 

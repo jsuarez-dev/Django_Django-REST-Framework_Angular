@@ -44,7 +44,7 @@ class InvitationsManagerTestCase(APITestCase):
         doc = SimpleUploadedFile("inform.docx",
                                  b"inform .....")
 
-        payload = {'name': 'inform.docx', 'upload': doc}
+        payload = {'upload': doc}
 
         request = self.client.post(self.url, payload)
 
@@ -58,7 +58,7 @@ class InvitationsManagerTestCase(APITestCase):
         file = SimpleUploadedFile("img.svg",
                                   b"inform .....")
 
-        payload = {'name': 'img.svg', 'upload': file}
+        payload = {'upload': file}
 
         request = self.client.post(self.url, payload)
         self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)
@@ -69,7 +69,7 @@ class InvitationsManagerTestCase(APITestCase):
         text_file = "".join(choice(ascii_lowercase) for i in range(n))
         doc = SimpleUploadedFile("inform.docx", bytearray(text_file, 'utf-8'))
 
-        payload = {'name': 'inform.docx', 'upload': doc}
+        payload = {'upload': doc}
 
         request = self.client.post(self.url, payload)
         self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)

@@ -23,6 +23,11 @@ class DocumentSerializer(ModelSerializer):
 
     """
 
+    class Meta:
+        model = Document
+        fields = ('id', 'name', 'upload')
+        read_only_fields = ['name']
+
     def validate_upload(self, data):
 
         if data.size > MAX_DOCUMENT_SIZE:
@@ -38,6 +43,7 @@ class DocumentSerializer(ModelSerializer):
 
         return data
 
-    class Meta:
-        model = Document
-        fields = ('id', 'name', 'upload')
+    def create(self, validated_data):
+        file = validated_data['upload']
+        validated_data['name'] = file.name
+        return super().create(validated_data)
