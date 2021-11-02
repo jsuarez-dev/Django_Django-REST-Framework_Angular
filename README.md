@@ -1,6 +1,6 @@
 # Django/ Django REST Framework /Angular
 
-This project is an reactive form to upload files in Angular and An REST API in Django REST Framework. An its docker support to easy deploy and test.
+This project is a reactive form to upload files in Angular and An REST API in Django REST Framework. I have included docker support for easy deployment and test.
 
 ## Dependencies to local/server execution
 
@@ -24,7 +24,7 @@ cd reactiveForms
 docker-compose build
 ```
 
-Second execute the containers.
+Secondly execute the containers.
 
 ```bash
 docker-compose up
@@ -36,7 +36,7 @@ http://localhost/
 
 ## Django test locally
 
-To run the test of django use the command. But you must clone and build the container first.
+To run the Django test use the below command, but you must clone and build the container first.
 
 ```bash
 docker-compose run --rm dj python manage.py test
@@ -44,7 +44,7 @@ docker-compose run --rm dj python manage.py test
 
 ## Angular test locally
 
-To run the test of angular you must move to the directory and install the node dependencies.
+To run the Angular test you must move to the directory and install the node dependencies.
 
 ```bash
 cd angular/documentsUI
