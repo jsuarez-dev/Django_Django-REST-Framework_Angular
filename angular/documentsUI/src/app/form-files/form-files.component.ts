@@ -91,11 +91,8 @@ export class FormFilesComponent {
       uploadProgress(progress => (this.progress = progress)),
       toResponseBody()
     ).subscribe(res => {
-      this.progress = 0;
       this.success = true;  
-      this.statusColor = 'dark'
       this.wasSuccessful()
-      this.uploadFile.reset();
     });
   }
 
@@ -110,6 +107,15 @@ export class FormFilesComponent {
     } else {
       this.statusColor = 'danger'
     }
+  }
+
+  resetForm() {
+    this.statusColor = 'dark'
+    this.progress = 0;
+    this.success = false;
+    this.uploadFile.reset();
+    this.uploadFile.markAsUntouched();
+    this.fileHasBeenUploadedEvent.emit(false)
   }
  
   hasError( field: string, error: string ) {

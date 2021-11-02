@@ -18,9 +18,9 @@ COPY . /app
 # Default build configuration.
 ARG configuration=development
 
+#RUN npm run test --prefix documentsUI
 # Build app
 RUN npm run build --prefix documentsUI -- --output-path=./dist/out --configuration $configuration
-
 
 ### Stage 2: delivery ###
 

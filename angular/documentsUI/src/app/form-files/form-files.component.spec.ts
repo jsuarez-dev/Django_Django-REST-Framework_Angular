@@ -20,14 +20,25 @@ describe('FormFilesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('file field validity', () => {
+  it('file initial state', () => {
     expect(component.uploadFile.valid).toBeFalsy();
-    const fileList = { 0: { name: 'foo', size: 500001 } };
-    let errors = {};
-    let upload = component.uploadFile['upload'].setValue({target: {'upload' : fileList}});
-    expect(component.uploadFile.valid).toBeTruthy();
-
-    component.submit();
-    expect(component.success).toBe(true);
+    const html: HTMLElement = fixture.nativeElement;
+    const title = html.querySelector('ion-title')!;
+    expect(title.textContent).toEqual('Upload your file');
+    
+    const summit = html.querySelector('#summit')!;
+    expect(summit.textContent).toEqual('Submit');
+    
+    const reset = html.querySelector('#reset')!;
+    expect(reset.textContent).toEqual('Clear');
   });
+
+it('Send form with out file', () => {
+  const summit = fixture.debugElement.nativeElement.querySelector('#summit')!;
+  expect(summit.textContent).toEqual('Submit');
+  summit.click()
+  expect(component.uploadFile.valid).toBeFalsy()
+  expect(component.hasError('upload', 'required')).toBeFalsy()    
+})
+
 });

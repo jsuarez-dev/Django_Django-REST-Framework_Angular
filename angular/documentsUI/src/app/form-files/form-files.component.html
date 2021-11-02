@@ -1,6 +1,6 @@
 <ion-grid>
   <ion-row>
-    <ion-title class="ion-text-center"> Upload your file</ion-title>
+    <ion-title class="ion-text-center">Upload your file</ion-title>
   </ion-row>
   <ion-grid>
     <form (ngSubmit)="submit()" [formGroup]="uploadFile">
@@ -13,12 +13,17 @@
       </ion-row>
 
       <ion-row class="ion-justify-content-center ion-margin-top">
-          <ion-label color="danger" *ngIf="hasError('upload', 'required')">This field is required</ion-label>
-          <ion-label color="danger" *ngIf="hasError('upload', 'requiredFileType')">Only {{ fileTypesAccepted }}</ion-label>
+          <ion-label id="error-file" color="danger" *ngIf="hasError('upload', 'required')">This field is required</ion-label>
+          <ion-label id="error-ext" color="danger" *ngIf="hasError('upload', 'requiredFileType')">Only {{ fileTypesAccepted }}</ion-label>
       </ion-row>
 
       <ion-row class="ion-justify-content-strat ion-margin-top">
-        <ion-button class="ion-padding-start" type="submit" color="primary">Submit</ion-button>
+        <ion-col offset="2" offset-xl="3" size="2">
+          <ion-button id="summit" type="submit" color="primary">Submit</ion-button>
+        </ion-col>
+        <ion-col offset="4" offset-xl="3" size="2">
+          <ion-button id="reset" color="danger" (click)="resetForm()">Clear</ion-button>
+        </ion-col>
       </ion-row>
     </form>
   </ion-grid>

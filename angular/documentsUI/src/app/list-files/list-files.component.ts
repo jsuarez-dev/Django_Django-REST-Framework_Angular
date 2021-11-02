@@ -9,8 +9,6 @@ interface fileData {
   ext: string;
 }
 
-
-
 @Component({
   selector: 'app-list-files',
   templateUrl: './list-files.component.html',
@@ -44,16 +42,21 @@ export class ListFilesComponent implements OnInit {
     }
   }
 
-
   fetchData() {
     this.http.get(this.API_URL).subscribe(
       (res : fileData[]) => {
-        //this.data = res
         this.data = res.map( obj => {
           return {...obj, 
           ext: obj.name.split('.')[1].toLowerCase()
           }
         })
+      }, (err) => {
+        this.data = [{
+          id: 0,
+          name : 'none files', 
+          upload: 'string',
+          ext: 'string',
+        }]
       }
     )
   }
