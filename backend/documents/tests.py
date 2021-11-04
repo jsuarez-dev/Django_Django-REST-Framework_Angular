@@ -15,19 +15,22 @@ from documents.models import Document
 # utils
 from random import choice
 from string import ascii_lowercase
+from datetime import datetime
 
 
-class InvitationsManagerTestCase(APITestCase):
+class UploadFileTestCase(APITestCase):
     """Invitations manager test case."""
 
     def setUp(self):
         """Test case setup."""
-        self.url = 'http://127.0.0.1:8000/documents/'
+        self.url = 'http://localhost:8000/documents/'
         cv = SimpleUploadedFile("cv.pdf",
                                 b"file_content")
         self.document_example = Document.objects.create(
             name='cv.pdf',
-            upload=cv
+            file=cv,
+            size=cv.size,
+            uploaded=datetime.now()
         )
 
     def test_list_of_document(self):
@@ -36,7 +39,7 @@ class InvitationsManagerTestCase(APITestCase):
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(request.data[0]['name'], 'cv.pdf')
-        self.assertRegexpMatches(request.data[0]['upload'],
+        self.assertRegexpMatches(request.data[0]['file'],
                                  r"^.+/storage/pdf/cv_?.*\.pdf$")
 
     def test_upload_file(self):
@@ -44,13 +47,14 @@ class InvitationsManagerTestCase(APITestCase):
         doc = SimpleUploadedFile("inform.docx",
                                  b"inform .....")
 
-        payload = {'upload': doc}
+        payload = {'file': doc}
 
         request = self.client.post(self.url, payload)
 
         self.assertEqual(request.status_code, status.HTTP_201_CREATED)
         self.assertEqual(request.data['name'], 'inform.docx')
-        self.assertRegexpMatches(request.data['upload'],
+        self.assertEqual(request.data['size'], doc.size)
+        self.assertRegexpMatches(request.data['file'],
                                  r"^.+/storage/docx/inform_?.*\.docx$")
 
     def test_upload_file_wrong_type(self):
@@ -58,7 +62,7 @@ class InvitationsManagerTestCase(APITestCase):
         file = SimpleUploadedFile("img.svg",
                                   b"inform .....")
 
-        payload = {'upload': file}
+        payload = {'file': file}
 
         request = self.client.post(self.url, payload)
         self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)
@@ -69,7 +73,7 @@ class InvitationsManagerTestCase(APITestCase):
         text_file = "".join(choice(ascii_lowercase) for i in range(n))
         doc = SimpleUploadedFile("inform.docx", bytearray(text_file, 'utf-8'))
 
-        payload = {'upload': doc}
+        payload = {'file': doc}
 
         request = self.client.post(self.url, payload)
         self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)

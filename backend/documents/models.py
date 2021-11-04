@@ -18,4 +18,6 @@ class Document(models.Model):
     This is the model for the data base
     """
     name = models.CharField(max_length=200)
-    upload = models.FileField(upload_to=extension_directory_path)
+    file = models.FileField(upload_to=extension_directory_path)
+    size = models.PositiveBigIntegerField()
+    uploaded = models.DateField(auto_now=True)

@@ -19,7 +19,7 @@ This project is a reactive form to upload files in Angular and An REST API in Dj
 First clone and build the containers.
 
 ```bash
-git clone
+git clone git@github.com:jadry92/Django_Django-REST-Framework_Angular.git
 cd reactiveForms
 docker-compose build
 ```

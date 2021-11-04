@@ -72,7 +72,7 @@ export class FormFilesComponent {
   private API_URL = environment.apiUrl
 
   uploadFile = new FormGroup({
-    upload : new FormControl('',[Validators.required, requiredFileType(this.fileTypesAccepted)])
+    file : new FormControl('',[Validators.required, requiredFileType(this.fileTypesAccepted)])
   })
 
   constructor(private http: HttpClient){}
@@ -93,6 +93,8 @@ export class FormFilesComponent {
     ).subscribe(res => {
       this.success = true;  
       this.wasSuccessful()
+    }, err => { 
+      markAllAsDirty(this.uploadFile);
     });
   }
 
@@ -101,7 +103,7 @@ export class FormFilesComponent {
   }
 
   onChange() {
-    const control = this.uploadFile.get('upload');
+    const control = this.uploadFile.get('file');
     if (control.status === 'VALID') {
       this.statusColor = 'success'
     } else {
@@ -120,7 +122,6 @@ export class FormFilesComponent {
  
   hasError( field: string, error: string ) {
     const control = this.uploadFile.get(field);
-    
     return control.dirty && control.hasError(error);
   }
 }

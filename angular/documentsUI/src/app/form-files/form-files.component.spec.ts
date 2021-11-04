@@ -38,7 +38,7 @@ it('Send form with out file', () => {
   expect(summit.textContent).toEqual('Submit');
   summit.click()
   expect(component.uploadFile.valid).toBeFalsy()
-  expect(component.hasError('upload', 'required')).toBeFalsy()    
+  expect(component.hasError('file', 'required')).toBeFalsy()    
 })
 
 });

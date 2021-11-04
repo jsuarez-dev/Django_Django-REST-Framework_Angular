@@ -4,22 +4,45 @@
       <ion-title class="ion-text-center">List of files</ion-title>
     </ion-col>
   </ion-row>
-
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="ion-text-center" size=4>
+      <p>Name</p>
+    </ion-col>
+    <ion-col class="ion-text-center" size=3>
+      <p>Size</p>
+    </ion-col>
+    <ion-col class="ion-text-center" size=3>
+      <p>Date</p>
+    </ion-col>
+    <ion-col class="ion-text-center" size=2>
+      <p>Actions</p>
+    </ion-col>
+  </ion-row>
   <ion-row class="ion-justify-content-center" *ngFor="let row of data">
 
-    <ion-col class="" size=7>
-      <p>
-        {{ row.name }}
-      </p>
+    <ion-col class="ion-text-center" size=4>
+      <p>{{ row.name }}</p>
     </ion-col>
       
-    <ion-col class="icon-doc" size=1 *ngIf="row.ext === 'pdf' ">
-      <a href="{{ row.upload }}">
+    <ion-col class="ion-text-center" size=3>
+      <p>{{ readableSize(row.size) }}</p>
+    </ion-col>
+    <ion-col class="ion-text-center" size=3>
+      <p>{{ row.uploaded }}</p>
+    </ion-col>
+    <ion-col class="icon-doc" size=1 *ngIf="row.ext === 'pdf'">
+      <a href="{{ row.file }}">
         <img class="icon-doc" src="assets/images/picture_as_pdf_black_24dp.svg" alt="">
       </a>
     </ion-col>
-    <ion-col class="icon-doc" size=1>
-      <a href="{{ row.upload }}" download>
+    <ion-col class="icon-doc" size=1 *ngIf="row.ext === 'pdf'">
+      <a href="{{ row.file }}" download>
+        <img class="icon-doc" src="assets/images/file_download_black_24dp.svg" alt="">
+      </a>
+    </ion-col>
+
+    <ion-col class="icon-doc" size=2 *ngIf="row.ext !== 'pdf'">
+      <a class="ion-align-self-center" href="{{ row.file }}" download>
         <img class="icon-doc" src="assets/images/file_download_black_24dp.svg" alt="">
       </a>
     </ion-col>

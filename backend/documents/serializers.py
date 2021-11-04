@@ -25,10 +25,10 @@ class DocumentSerializer(ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('id', 'name', 'upload')
-        read_only_fields = ['name']
+        fields = ('id', 'name', 'file', 'size', 'uploaded')
+        read_only_fields = ['name', 'size', 'uploaded']
 
-    def validate_upload(self, data):
+    def validate_file(self, data):
 
         if data.size > MAX_DOCUMENT_SIZE:
             raise ValidationError('The File has to be less than 5MB')
@@ -44,6 +44,7 @@ class DocumentSerializer(ModelSerializer):
         return data
 
     def create(self, validated_data):
-        file = validated_data['upload']
+        file = validated_data['file']
         validated_data['name'] = file.name
+        validated_data['size'] = file.size
         return super().create(validated_data)
